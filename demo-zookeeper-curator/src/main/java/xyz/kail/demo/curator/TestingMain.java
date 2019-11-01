@@ -1,5 +1,6 @@
 package xyz.kail.demo.curator;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
@@ -7,24 +8,28 @@ import org.apache.curator.test.TestingServer;
 
 import java.io.File;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
- * Created by Kail on 2016/2/29.
+ * 创建测试服务器
+ *
+ * @see xyz.kail.demo.curator.TestingMain
  */
+@Slf4j
 public class TestingMain {
 
     private static TestingServer testingServer = null;
 
     static {
         try {
-            testingServer = new TestingServer(-1, new File("D:/opt/data/zookeeper"));
+            testingServer = new TestingServer(-1, new File("/tmp/zookeeper"));
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("", e);
         }
     }
 
     public static void main(String[] args) throws Exception {
+
+        log.info(testingServer.getConnectString());
 
         CuratorFramework server = CuratorFrameworkFactory.builder()
                 .connectString(testingServer.getConnectString())
@@ -35,11 +40,11 @@ public class TestingMain {
 
         List<String> paths = server.getChildren().forPath("/");
         for (String path : paths) {
-            System.out.println(path);
+            log.info("path:{} ", path);
         }
 
         String path = server.create().forPath("/testing");
-        System.out.println(path);
+        log.info(path);
 
         testingServer.stop();
     }
