@@ -16,7 +16,9 @@ import java.util.concurrent.CountDownLatch;
 public class MasterSelect implements Watcher {
 
     private CountDownLatch connectedSemaphore = new CountDownLatch(1);
+
     private static CountDownLatch _semaphore = new CountDownLatch(2);
+
     private ZooKeeper zk;
 
     ZooKeeper createSession(String connectString, int sessionTimeout, Watcher watcher) throws IOException {
