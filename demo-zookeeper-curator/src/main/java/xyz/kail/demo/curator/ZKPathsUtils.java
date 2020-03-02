@@ -9,7 +9,6 @@ import org.apache.zookeeper.ZooDefs;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.ACL;
 import org.apache.zookeeper.data.Id;
-import xyz.kail.demo.zookeeper.core.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,7 @@ public class ZKPathsUtils {
 
     private static void needZookeeper() throws Exception {
 
-        ZooKeeper zooKeeper = new DefaultZookeeperFactory().newZooKeeper(R.ZK_ADDRESS, 1000 * 60, new Watcher() {
+        ZooKeeper zooKeeper = new DefaultZookeeperFactory().newZooKeeper("127.0.0.1:21810", 1000 * 60, new Watcher() {
             @Override
             public void process(WatchedEvent event) {
                 System.out.println(event);

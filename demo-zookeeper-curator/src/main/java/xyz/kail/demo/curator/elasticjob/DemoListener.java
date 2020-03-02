@@ -13,10 +13,12 @@ public class DemoListener implements TreeCacheListener {
     public final void childEvent(final CuratorFramework client, final TreeCacheEvent event) throws Exception {
         ChildData childData = event.getData();
         if (null == childData) {
+            log.error("childData null");
             return;
         }
         String path = childData.getPath();
         if (path.isEmpty()) {
+            log.error("path isEmpty");
             return;
         }
 

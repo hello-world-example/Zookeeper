@@ -4,7 +4,6 @@ import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 import org.apache.curator.retry.ExponentialBackoffRetry;
-import xyz.kail.demo.zookeeper.core.R;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,7 +16,7 @@ public class LockMain {
 
     public static void main(String[] args) throws Exception {
         CuratorFramework client = CuratorFrameworkFactory.builder()
-                .connectString(R.ZK_ADDRESS)
+                .connectString("127.0.0.1:21810")
                 .retryPolicy(new ExponentialBackoffRetry(1000, 3))
                 .build();
         client.start();

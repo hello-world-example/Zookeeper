@@ -58,7 +58,7 @@ public class Main {
 
         ZooKeeper zk = new ZooKeeper(
                 RR.ZK_HOST,
-                60 * 1000,
+                30 * 1000,
                 event -> LOGGER.info("{}", event)
         );
 
