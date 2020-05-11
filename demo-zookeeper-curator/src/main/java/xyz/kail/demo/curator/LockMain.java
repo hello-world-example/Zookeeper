@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class LockMain {
 
-    private static String lock_path = "/ttpai/zk/locktest";
+    private static String lock_path = "/kail/zk/locktest";
 
     public static void main(String[] args) throws Exception {
         CuratorFramework client = CuratorFrameworkFactory.builder()
