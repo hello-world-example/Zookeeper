@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="四字命令 使用方式 $ echo mntr | nc localhost 2181 简介    命令 since 简介     conf 3.3.0 查看服务配置   cons 3.3.0 连接到服务器的 客户端的完全的连接 / 会话的详细信息包括 “接受 / 发送” 的包数量、会话 id 、操作延迟、最后的操作执行等等信息。   crst 3.3.0 重置 cons   dump  列出未完成会话和临时节点   envi  服务端环境信息   ruok  服务处于正确状态 返回 imok ”，否则不做人任何返回        srvr  性能统计信息   stat 3."><meta property="og:title" content="" />
+<meta property="og:description" content="四字命令 使用方式 $ echo mntr | nc localhost 2181 简介    命令 since 简介     conf 3.3.0 查看服务配置   cons 3.3.0 连接到服务器的 客户端的完全的连接 / 会话的详细信息包括 “接受 / 发送” 的包数量、会话 id 、操作延迟、最后的操作执行等等信息。   crst 3.3.0 重置 cons   dump  列出未完成会话和临时节点   envi  服务端环境信息   ruok  服务处于正确状态 返回 imok ”，否则不做人任何返回        srvr  性能统计信息   stat 3." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hello-world-example.github.io/Zookeeper/docs/Monitor/4-letter-words/" />
+<meta property="article:modified_time" content="2020-12-14T14:47:52+08:00" />
+<title>4 Letter Words | Zookeeper</title>
+<link rel="icon" href="/Zookeeper/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/Zookeeper/book.min.d436f463c9471cfab26a8b71cd2f50b6abf5225806391453da4ca111d1834fef.css" integrity="sha256-1Db0Y8lHHPqyaotxzS9Qtqv1IlgGORRT2kyhEdGDT&#43;8=">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/Zookeeper"><span>Zookeeper</span>
+  </a>
+</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+  <ul>
+<li><strong>Monitor</strong>
+<ul>
+<li><a href="/Zookeeper/docs/Monitor/4-letter-words/"class=active>四字命令</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/Zookeeper/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>4 Letter Words</strong>
+
+  <label for="toc-control">
+    <img src="/Zookeeper/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#使用方式">使用方式</a></li>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#重要指令">重要指令</a>
+      <ul>
+        <li><a href="#mntr">mntr</a></li>
+        <li><a href="#cons">cons</a></li>
+      </ul>
+    </li>
+    <li><a href="#read-more">Read More</a></li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="四字命令">四字命令</h1>
+<h2 id="使用方式">使用方式</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ echo mntr | nc localhost <span style="color:#ae81ff">2181</span>
+</code></pre></div><h2 id="简介">简介</h2>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">since</th>
+<th>简介</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><strong><code>conf</code></strong></td>
+<td align="center">3.3.0</td>
+<td>查看服务配置</td>
+</tr>
+<tr>
+<td align="center"><strong><code>cons</code></strong></td>
+<td align="center">3.3.0</td>
+<td>连接到服务器的 客户端的完全的连接 <em>/</em> 会话的详细信息<!-- raw HTML omitted -->包括 “接受 <em>/</em> 发送” 的包数量、会话 <em>id</em> 、操作延迟、最后的操作执行等等信息。</td>
+</tr>
+<tr>
+<td align="center"><em>crst</em></td>
+<td align="center">3.3.0</td>
+<td>重置 <code>cons</code></td>
+</tr>
+<tr>
+<td align="center"><code>dump</code></td>
+<td align="center"></td>
+<td>列出未完成会话和临时节点</td>
+</tr>
+<tr>
+<td align="center"><strong><code>envi</code></strong></td>
+<td align="center"></td>
+<td>服务端环境信息</td>
+</tr>
+<tr>
+<td align="center"><code>ruok</code></td>
+<td align="center"></td>
+<td>服务处于正确状态 返回 <code>imok</code> ”，否则不做人任何返回</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+</tr>
+<tr>
+<td align="center"><code>srvr</code></td>
+<td align="center"></td>
+<td>性能统计信息</td>
+</tr>
+<tr>
+<td align="center"><strong><code>stat</code></strong></td>
+<td align="center">3.3.0</td>
+<td>客户端的列表 和 <code>srvr</code></td>
+</tr>
+<tr>
+<td align="center"><em>stst</em></td>
+<td align="center"></td>
+<td>重置 <code>stat</code></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+</tr>
+<tr>
+<td align="center"><strong><code>wchs</code></strong></td>
+<td align="center">3.3.0</td>
+<td>Watch 信息 统计</td>
+</tr>
+<tr>
+<td align="center"><code>wchc</code></td>
+<td align="center">3.3.0</td>
+<td>Watch 信息 Group by Session</td>
+</tr>
+<tr>
+<td align="center"><code>wchp</code></td>
+<td align="center">3.3.0</td>
+<td>Watch 信息 Group by Path</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">dirs</td>
+<td align="center">3.5.1</td>
+<td>以字节为单位显示快照和日志文件的总大小</td>
+</tr>
+<tr>
+<td align="center"><strong><code>mntr</code></strong></td>
+<td align="center">3.4.0</td>
+<td>集群运行状态整体指标</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">isro</td>
+<td align="center">3.4.0</td>
+<td>测试集群是否处于 ReadOnly 状态，<code>ro</code> 、<code>rw</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="重要指令">重要指令</h2>
+<h3 id="mntr">mntr</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>简介</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>zk_version</td>
+<td>版本</td>
+<td>3.4.6-1569965, built on 02/20/2014 09:09 GMT</td>
+</tr>
+<tr>
+<td><strong>zk_min_latency</strong></td>
+<td>最小 延时</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>zk_avg_latency</strong></td>
+<td>平均 延时</td>
+<td>0</td>
+</tr>
+<tr>
+<td>zk_max_latency</td>
+<td>最大 延时</td>
+<td>16</td>
+</tr>
+<tr>
+<td>zk_packets_received</td>
+<td>接收包数量</td>
+<td>6705007</td>
+</tr>
+<tr>
+<td>zk_packets_sent</td>
+<td>发送包数量</td>
+<td>6743582</td>
+</tr>
+<tr>
+<td><strong>zk_num_alive_connections</strong></td>
+<td>活跃，配合 <code>cons</code> 查看详情</td>
+<td>125</td>
+</tr>
+<tr>
+<td><strong>zk_outstanding_requests</strong></td>
+<td>排队请求数，zk 到达瓶颈时该值会增加</td>
+<td>0</td>
+</tr>
+<tr>
+<td>zk_server_state</td>
+<td>当前节点角色</td>
+<td>follower</td>
+</tr>
+<tr>
+<td><strong>zk_znode_count</strong></td>
+<td>znode 节点数</td>
+<td>12148</td>
+</tr>
+<tr>
+<td><strong>zk_watch_count</strong></td>
+<td>watch 数量</td>
+<td>2634</td>
+</tr>
+<tr>
+<td>zk_ephemerals_count</td>
+<td>临时节点数</td>
+<td>1030</td>
+</tr>
+<tr>
+<td>zk_approximate_data_size</td>
+<td>近似数据大小</td>
+<td>7935888</td>
+</tr>
+<tr>
+<td><strong>zk_open_file_descriptor_count</strong></td>
+<td>打开文件数</td>
+<td>153</td>
+</tr>
+<tr>
+<td>zk_max_file_descriptor_count</td>
+<td>最大打开文件数</td>
+<td>204800</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cons">cons</h3>
+<blockquote>
+<p>queued=0,recved=267621,sent=267621,sid=0x17644c9559f00a4,lop=PING,est=1607479755363,to=5000,lcxid=0x0,lzxid=0xffffffffffffffff,lresp=1607926070374,llat=0,minlat=0,avglat=0,maxlat=6</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>queued</td>
+<td>队列中待处理的数量</td>
+<td>0</td>
+</tr>
+<tr>
+<td>recved</td>
+<td>接收包数量</td>
+<td>267621</td>
+</tr>
+<tr>
+<td>sent</td>
+<td>发送的包数量</td>
+<td>267621</td>
+</tr>
+<tr>
+<td>sid</td>
+<td>Session ID</td>
+<td>0x17644c9559f00a4</td>
+</tr>
+<tr>
+<td>lop</td>
+<td>最后的操作</td>
+<td>PING</td>
+</tr>
+<tr>
+<td>est</td>
+<td>连接的时间</td>
+<td>1607479755363</td>
+</tr>
+<tr>
+<td>to</td>
+<td>超时时间</td>
+<td>5000</td>
+</tr>
+<tr>
+<td>lcxid</td>
+<td>客户端最后操作的序列号</td>
+<td>0x0</td>
+</tr>
+<tr>
+<td>lzxid</td>
+<td>最后的事务序列号</td>
+<td>0xffffffffffffffff</td>
+</tr>
+<tr>
+<td>lresp</td>
+<td>最后回复时间戳</td>
+<td>1607926070374</td>
+</tr>
+<tr>
+<td>llat</td>
+<td>最后操作的延时</td>
+<td>0</td>
+</tr>
+<tr>
+<td>minlat</td>
+<td>最小延时</td>
+<td>0</td>
+</tr>
+<tr>
+<td>avglat</td>
+<td>平均延时</td>
+<td>0</td>
+</tr>
+<tr>
+<td>maxlat</td>
+<td>最大延时</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<h2 id="read-more">Read More</h2>
+<ul>
+<li><a href="https://zookeeper.apache.org/doc/r3.4.14/zookeeperAdmin.html#sc_zkCommands">ZooKeeper Commands: The Four Letter Words</a></li>
+<li>3.5.0 后增加 <a href="https://zookeeper.apache.org/doc/r3.6.2/zookeeperAdmin.html#sc_adminserver">The AdminServer</a> ， 四字命令可能会被废弃</li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex justify-between">
+
+
+
+  <div>
+    
+    <a class="flex align-center" href="https://github.com/hello-world-example/Zookeeper/commit/1be546df1f80d84f73834f476fbbedd6ec29e88a" title='Last modified by kaibin.yang | Dec 14, 2020' target="_blank" rel="noopener">
+      <img src="/Zookeeper/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>Dec 14, 2020</span>
+    </a>
+  </div>
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/hello-world-example/Zookeeper/edit/master/HuGo/content/docs/Monitor/4-letter-words.md" target="_blank" rel="noopener">
+      <img src="/Zookeeper/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        <script>
+var images = document.getElementsByTagName("img")
+console.info(images.length)
+for(var i=0; i<images.length; i++){
+  var image = images[i]
+  var src = image.getAttribute("src");
+  if(src.startsWith("-images")){
+    image.setAttribute("src", "../" + src)
+  }
+}
+</script>
+
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#使用方式">使用方式</a></li>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#重要指令">重要指令</a>
+      <ul>
+        <li><a href="#mntr">mntr</a></li>
+        <li><a href="#cons">cons</a></li>
+      </ul>
+    </li>
+    <li><a href="#read-more">Read More</a></li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,40 +1,25 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
     <loc>https://hello-world-example.github.io/Zookeeper/_sidebar/</loc>
-    <lastmod>2019-10-28T16:26:32+08:00</lastmod>
+    <lastmod>2020-12-14T14:47:52+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://hello-world-example.github.io/Zookeeper/docs/hidden/</loc>
-    <lastmod>2019-10-28T16:26:32+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://hello-world-example.github.io/Zookeeper/docs/shortcodes/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://hello-world-example.github.io/Zookeeper/docs/with-toc/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://hello-world-example.github.io/Zookeeper/docs/without-toc/</loc>
-    <lastmod>2019-10-28T16:26:32+08:00</lastmod>
+    <loc>https://hello-world-example.github.io/Zookeeper/docs/Monitor/4-letter-words/</loc>
+    <lastmod>2020-12-14T14:47:52+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://hello-world-example.github.io/Zookeeper/docs/</loc>
-    <lastmod>2019-10-28T16:26:32+08:00</lastmod>
+    <lastmod>2020-12-14T14:47:52+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://hello-world-example.github.io/Zookeeper/</loc>
-    <lastmod>2019-10-28T16:26:32+08:00</lastmod>
+    <lastmod>2020-12-14T14:47:52+08:00</lastmod>
   </url>
   
 </urlset>
