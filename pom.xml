@@ -39,7 +39,7 @@
         <!--<curator.version>4.2.0</curator.version>-->
 
         <!-- Elastic Job -->
-        <zookeeper.version>3.4.6</zookeeper.version>
+        <zookeeper.version>3.4.14</zookeeper.version>
         <curator.version>2.10.0</curator.version>
 
     </properties>
