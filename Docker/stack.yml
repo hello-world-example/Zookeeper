@@ -1,0 +1,38 @@
+version: '3.1'
+
+services:
+  zoo1:
+    image: zookeeper:3.6.2
+    hostname: zoo1
+    ports:
+      - 12181:2181
+      - 18080:8080
+      - 17070:7070
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
+      ZOO_CFG_EXTRA: metricsProvider.className=org.apache.zookeeper.metrics.prometheus.PrometheusMetricsProvider metricsProvider.httpPort=7070
+
+  zoo2:
+    image: zookeeper:3.6.2
+    hostname: zoo2
+    ports:
+      - 22181:2181
+      - 28080:8080
+      - 27070:7070
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
+      ZOO_CFG_EXTRA: metricsProvider.className=org.apache.zookeeper.metrics.prometheus.PrometheusMetricsProvider metricsProvider.httpPort=7070
+
+  zoo3:
+    image: zookeeper:3.6.2
+    hostname: zoo3
+    ports:
+      - 32181:2181
+      - 38080:8080
+      - 37070:7070
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
+      ZOO_CFG_EXTRA: metricsProvider.className=org.apache.zookeeper.metrics.prometheus.PrometheusMetricsProvider metricsProvider.httpPort=7070
