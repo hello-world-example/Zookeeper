@@ -74,7 +74,7 @@ $ echo 'conf' | nc localhost 2181
 
 ### stack.yml
 
-```bash
+```yaml
 version: '3.1'
 
 services:

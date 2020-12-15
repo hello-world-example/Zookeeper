@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="3.6.0 原生 Prometheus 监控 Zookeeper 开启 Prometheus 详见: Docker 方式安装， 关键参数如下：
+metricsProvider.className=org.apache.zookeeper.metrics.prometheus.PrometheusMetricsProvider metricsProvider.httpPort=7070 Prometheus 配置 prometheus.yml $ mkdir /private/docker/volumes/prometheus/ # 内容如下 # https://github.com/prometheus/prometheus/blob/master/documentation/examples/prometheus.yml $ vim /private/docker/volumes/prometheus/prometheus.yml global: scrape_interval: 15s evaluation_interval: 15s scrape_configs: - job_name: &#39;prometheus&#39; static_configs: - targets: [&#39;localhost:9090&#39;] - job_name: &#39;zookeeper-monitor&#39; static_configs: - targets: [&#39;zoo1:7070&#39;,&#39;zoo2:7070&#39;,&#39;zoo3:7070&#39;] Compose 内容如下 version: &#39;3.1&#39; services: zoo1: image: zookeeper:3.6.2 hostname: zoo1 ports: - 12181:2181 - 18080:8080 - 17070:7070 environment: ZOO_MY_ID: 1 ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888 ZOO_CFG_EXTRA: metricsProvider."><meta property="og:title" content="" />
+<meta property="og:description" content="3.6.0 原生 Prometheus 监控 Zookeeper 开启 Prometheus 详见: Docker 方式安装， 关键参数如下：
+metricsProvider.className=org.apache.zookeeper.metrics.prometheus.PrometheusMetricsProvider metricsProvider.httpPort=7070 Prometheus 配置 prometheus.yml $ mkdir /private/docker/volumes/prometheus/ # 内容如下 # https://github.com/prometheus/prometheus/blob/master/documentation/examples/prometheus.yml $ vim /private/docker/volumes/prometheus/prometheus.yml global: scrape_interval: 15s evaluation_interval: 15s scrape_configs: - job_name: &#39;prometheus&#39; static_configs: - targets: [&#39;localhost:9090&#39;] - job_name: &#39;zookeeper-monitor&#39; static_configs: - targets: [&#39;zoo1:7070&#39;,&#39;zoo2:7070&#39;,&#39;zoo3:7070&#39;] Compose 内容如下 version: &#39;3.1&#39; services: zoo1: image: zookeeper:3.6.2 hostname: zoo1 ports: - 12181:2181 - 18080:8080 - 17070:7070 environment: ZOO_MY_ID: 1 ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888 ZOO_CFG_EXTRA: metricsProvider." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hello-world-example.github.io/Zookeeper/docs/Monitor/Prometheus-Zookeeper/" />
+
+<title>Prometheus Zookeeper | Zookeeper</title>
+<link rel="icon" href="/Zookeeper/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/Zookeeper/book.min.d436f463c9471cfab26a8b71cd2f50b6abf5225806391453da4ca111d1834fef.css" integrity="sha256-1Db0Y8lHHPqyaotxzS9Qtqv1IlgGORRT2kyhEdGDT&#43;8=">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/Zookeeper"><span>Zookeeper</span>
+  </a>
+</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+  <ul>
+<li>
+<p><strong>Quick-Start</strong></p>
+<ul>
+<li><a href="/Zookeeper/docs/Quick-Start/Install-by-Docker/">Docker 方式安装</a></li>
+</ul>
+</li>
+<li>
+<p><strong>Monitor</strong></p>
+<ul>
+<li><a href="/Zookeeper/docs/Monitor/4-letter-words/">四字命令</a></li>
+<li><a href="/Zookeeper/docs/Monitor/Prometheus-Zookeeper/"class=active>3.6.0 原生 Prometheus 监控</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/Zookeeper/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Prometheus Zookeeper</strong>
+
+  <label for="toc-control">
+    <img src="/Zookeeper/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#zookeeper-开启-prometheus">Zookeeper 开启 Prometheus</a></li>
+    <li><a href="#prometheus-配置">Prometheus 配置</a>
+      <ul>
+        <li><a href="#prometheusyml">prometheus.yml</a></li>
+        <li><a href="#compose-内容如下">Compose 内容如下</a></li>
+        <li><a href="#启动">启动</a></li>
+      </ul>
+    </li>
+    <li><a href="#grafana-报表">Grafana 报表</a></li>
+    <li><a href="#read-more">Read More</a></li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="360-原生-prometheus-监控">3.6.0 原生 Prometheus 监控</h1>
+<h2 id="zookeeper-开启-prometheus">Zookeeper 开启 Prometheus</h2>
+<p>详见: <a href="/Zookeeper/docs/Quick-Start/Install-by-Docker/">Docker 方式安装</a>， 关键参数如下：</p>
+<pre><code>metricsProvider.className=org.apache.zookeeper.metrics.prometheus.PrometheusMetricsProvider
+metricsProvider.httpPort=7070
+</code></pre><h2 id="prometheus-配置">Prometheus 配置</h2>
+<h3 id="prometheusyml">prometheus.yml</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mkdir /private/docker/volumes/prometheus/
+
+<span style="color:#75715e"># 内容如下</span>
+<span style="color:#75715e"># https://github.com/prometheus/prometheus/blob/master/documentation/examples/prometheus.yml</span>
+$ vim /private/docker/volumes/prometheus/prometheus.yml
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+scrape_configs:
+  - job_name: <span style="color:#e6db74">&#39;prometheus&#39;</span>
+    static_configs:
+    - targets: <span style="color:#f92672">[</span><span style="color:#e6db74">&#39;localhost:9090&#39;</span><span style="color:#f92672">]</span>
+  - job_name: <span style="color:#e6db74">&#39;zookeeper-monitor&#39;</span>
+    static_configs:
+    - targets: <span style="color:#f92672">[</span><span style="color:#e6db74">&#39;zoo1:7070&#39;</span>,<span style="color:#e6db74">&#39;zoo2:7070&#39;</span>,<span style="color:#e6db74">&#39;zoo3:7070&#39;</span><span style="color:#f92672">]</span>
+</code></pre></div><h3 id="compose-内容如下">Compose 内容如下</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">version</span>: <span style="color:#e6db74">&#39;3.1&#39;</span>
+
+<span style="color:#66d9ef">services</span>:
+  <span style="color:#66d9ef">zoo1</span>:
+    <span style="color:#66d9ef">image</span>: zookeeper:<span style="color:#ae81ff">3.6.2</span>
+    <span style="color:#66d9ef">hostname</span>: zoo1
+    <span style="color:#66d9ef">ports</span>:
+      - <span style="color:#ae81ff">12181</span>:<span style="color:#ae81ff">2181</span>
+      - <span style="color:#ae81ff">18080</span>:<span style="color:#ae81ff">8080</span>
+      - <span style="color:#ae81ff">17070</span>:<span style="color:#ae81ff">7070</span>
+    <span style="color:#66d9ef">environment</span>:
+      <span style="color:#66d9ef">ZOO_MY_ID</span>: <span style="color:#ae81ff">1</span>
+      <span style="color:#66d9ef">ZOO_SERVERS</span>: server<span style="color:#ae81ff">.1</span>=zoo1:<span style="color:#ae81ff">2888</span>:<span style="color:#ae81ff">3888</span> server<span style="color:#ae81ff">.2</span>=zoo2:<span style="color:#ae81ff">2888</span>:<span style="color:#ae81ff">3888</span> server<span style="color:#ae81ff">.3</span>=zoo3:<span style="color:#ae81ff">2888</span>:<span style="color:#ae81ff">3888</span>
+      <span style="color:#66d9ef">ZOO_CFG_EXTRA</span>: metricsProvider.className=org.apache.zookeeper.metrics.prometheus.PrometheusMetricsProvider metricsProvider.httpPort=<span style="color:#ae81ff">7070</span>
+
+  <span style="color:#66d9ef">zoo2</span>:
+    <span style="color:#66d9ef">image</span>: zookeeper:<span style="color:#ae81ff">3.6.2</span>
+    <span style="color:#66d9ef">hostname</span>: zoo2
+    <span style="color:#66d9ef">ports</span>:
+      - <span style="color:#ae81ff">22181</span>:<span style="color:#ae81ff">2181</span>
+      - <span style="color:#ae81ff">28080</span>:<span style="color:#ae81ff">8080</span>
+      - <span style="color:#ae81ff">27070</span>:<span style="color:#ae81ff">7070</span>
+    <span style="color:#66d9ef">environment</span>:
+      <span style="color:#66d9ef">ZOO_MY_ID</span>: <span style="color:#ae81ff">2</span>
+      <span style="color:#66d9ef">ZOO_SERVERS</span>: server<span style="color:#ae81ff">.1</span>=zoo1:<span style="color:#ae81ff">2888</span>:<span style="color:#ae81ff">3888</span> server<span style="color:#ae81ff">.2</span>=zoo2:<span style="color:#ae81ff">2888</span>:<span style="color:#ae81ff">3888</span> server<span style="color:#ae81ff">.3</span>=zoo3:<span style="color:#ae81ff">2888</span>:<span style="color:#ae81ff">3888</span>
+      <span style="color:#66d9ef">ZOO_CFG_EXTRA</span>: metricsProvider.className=org.apache.zookeeper.metrics.prometheus.PrometheusMetricsProvider metricsProvider.httpPort=<span style="color:#ae81ff">7070</span>
+
+  <span style="color:#66d9ef">zoo3</span>:
+    <span style="color:#66d9ef">image</span>: zookeeper:<span style="color:#ae81ff">3.6.2</span>
+    <span style="color:#66d9ef">hostname</span>: zoo3
+    <span style="color:#66d9ef">ports</span>:
+      - <span style="color:#ae81ff">32181</span>:<span style="color:#ae81ff">2181</span>
+      - <span style="color:#ae81ff">38080</span>:<span style="color:#ae81ff">8080</span>
+      - <span style="color:#ae81ff">37070</span>:<span style="color:#ae81ff">7070</span>
+    <span style="color:#66d9ef">environment</span>:
+      <span style="color:#66d9ef">ZOO_MY_ID</span>: <span style="color:#ae81ff">3</span>
+      <span style="color:#66d9ef">ZOO_SERVERS</span>: server<span style="color:#ae81ff">.1</span>=zoo1:<span style="color:#ae81ff">2888</span>:<span style="color:#ae81ff">3888</span> server<span style="color:#ae81ff">.2</span>=zoo2:<span style="color:#ae81ff">2888</span>:<span style="color:#ae81ff">3888</span> server<span style="color:#ae81ff">.3</span>=zoo3:<span style="color:#ae81ff">2888</span>:<span style="color:#ae81ff">3888</span>
+      <span style="color:#66d9ef">ZOO_CFG_EXTRA</span>: metricsProvider.className=org.apache.zookeeper.metrics.prometheus.PrometheusMetricsProvider metricsProvider.httpPort=<span style="color:#ae81ff">7070</span>
+
+  <span style="color:#66d9ef">prometheus</span>:
+    <span style="color:#66d9ef">image</span>: prom/prometheus:v2<span style="color:#ae81ff">.23.0</span>
+    <span style="color:#66d9ef">hostname</span>: prometheus
+    <span style="color:#66d9ef">ports</span>:
+      - <span style="color:#ae81ff">19090</span>:<span style="color:#ae81ff">9090</span>
+    <span style="color:#66d9ef">volumes</span>:
+      - /private/docker/volumes/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+</code></pre></div><h3 id="启动">启动</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker stack deploy -c docker-prometheus.yml zoo-prom-cluster
+
+<span style="color:#75715e"># 删除</span>
+$ docker stack rm zoo-prom-cluster
+</code></pre></div><h2 id="grafana-报表">Grafana 报表</h2>
+<blockquote>
+<p>ZooKeeper by Prometheus：<a href="https://grafana.com/grafana/dashboards/10465">https://grafana.com/grafana/dashboards/10465</a></p>
+<p>导入 Prometheus 即可</p>
+</blockquote>
+<h2 id="read-more">Read More</h2>
+<ul>
+<li>
+<p><a href="https://zookeeper.apache.org/doc/current/zookeeperMonitor.html#Prometheus">ZooKeeper Monitor Guide</a></p>
+</li>
+<li>
+<p>Docker Hub <a href="https://hub.docker.com/r/prom/prometheus">prom/prometheus</a></p>
+</li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/hello-world-example/Zookeeper/edit/master/HuGo/content/docs/Monitor/Prometheus-Zookeeper.md" target="_blank" rel="noopener">
+      <img src="/Zookeeper/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        <script>
+var images = document.getElementsByTagName("img")
+console.info(images.length)
+for(var i=0; i<images.length; i++){
+  var image = images[i]
+  var src = image.getAttribute("src");
+  if(src.startsWith("-images")){
+    image.setAttribute("src", "../" + src)
+  }
+}
+</script>
+
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#zookeeper-开启-prometheus">Zookeeper 开启 Prometheus</a></li>
+    <li><a href="#prometheus-配置">Prometheus 配置</a>
+      <ul>
+        <li><a href="#prometheusyml">prometheus.yml</a></li>
+        <li><a href="#compose-内容如下">Compose 内容如下</a></li>
+        <li><a href="#启动">启动</a></li>
+      </ul>
+    </li>
+    <li><a href="#grafana-报表">Grafana 报表</a></li>
+    <li><a href="#read-more">Read More</a></li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -20,6 +20,16 @@
     
     <item>
       <title></title>
+      <link>https://hello-world-example.github.io/Zookeeper/docs/Monitor/Prometheus-Zookeeper/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Zookeeper/docs/Monitor/Prometheus-Zookeeper/</guid>
+      <description>3.6.0 原生 Prometheus 监控 Zookeeper 开启 Prometheus 详见: Docker 方式安装， 关键参数如下：
+metricsProvider.className=org.apache.zookeeper.metrics.prometheus.PrometheusMetricsProvider metricsProvider.httpPort=7070 Prometheus 配置 prometheus.yml $ mkdir /private/docker/volumes/prometheus/ # 内容如下 # https://github.com/prometheus/prometheus/blob/master/documentation/examples/prometheus.yml $ vim /private/docker/volumes/prometheus/prometheus.yml global: scrape_interval: 15s evaluation_interval: 15s scrape_configs: - job_name: &amp;#39;prometheus&amp;#39; static_configs: - targets: [&amp;#39;localhost:9090&amp;#39;] - job_name: &amp;#39;zookeeper-monitor&amp;#39; static_configs: - targets: [&amp;#39;zoo1:7070&amp;#39;,&amp;#39;zoo2:7070&amp;#39;,&amp;#39;zoo3:7070&amp;#39;] Compose 内容如下 version: &amp;#39;3.1&amp;#39; services: zoo1: image: zookeeper:3.6.2 hostname: zoo1 ports: - 12181:2181 - 18080:8080 - 17070:7070 environment: ZOO_MY_ID: 1 ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888 ZOO_CFG_EXTRA: metricsProvider.</description>
+    </item>
+    
+    <item>
+      <title></title>
       <link>https://hello-world-example.github.io/Zookeeper/docs/Quick-Start/Install-by-Docker/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       

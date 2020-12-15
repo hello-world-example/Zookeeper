@@ -17,7 +17,7 @@
       <guid>https://hello-world-example.github.io/Zookeeper/_sidebar/</guid>
       <description>  Quick-Start
  Docker 方式安装    Monitor
- 四字命令    </description>
+ 四字命令 3.6.0 原生 Prometheus 监控    </description>
     </item>
     
     <item>
@@ -27,6 +27,16 @@
       
       <guid>https://hello-world-example.github.io/Zookeeper/docs/Monitor/4-letter-words/</guid>
       <description>四字命令 使用方式 $ echo mntr | nc localhost 2181 简介    命令 since Admin 简介     conf 3.3.0 configuration 查看服务配置   cons 3.3.0 connections 连接到服务器的 客户端的完全的连接 / 会话的详细信息包括 “接受 / 发送” 的包数量、会话 id 、操作延迟、最后的操作执行等等信息。   crst 3.3.0 connection_stat_reset 重置 cons   dump  dump 列出未完成会话和临时节点   envi  environment 服务端环境信息   ruok  ruok 服务处于正确状态 返回 imok ”，否则不做人任何返回         srvr  server_stats 性能统计信息   stat 3.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://hello-world-example.github.io/Zookeeper/docs/Monitor/Prometheus-Zookeeper/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Zookeeper/docs/Monitor/Prometheus-Zookeeper/</guid>
+      <description>3.6.0 原生 Prometheus 监控 Zookeeper 开启 Prometheus 详见: Docker 方式安装， 关键参数如下：
+metricsProvider.className=org.apache.zookeeper.metrics.prometheus.PrometheusMetricsProvider metricsProvider.httpPort=7070 Prometheus 配置 prometheus.yml $ mkdir /private/docker/volumes/prometheus/ # 内容如下 # https://github.com/prometheus/prometheus/blob/master/documentation/examples/prometheus.yml $ vim /private/docker/volumes/prometheus/prometheus.yml global: scrape_interval: 15s evaluation_interval: 15s scrape_configs: - job_name: &amp;#39;prometheus&amp;#39; static_configs: - targets: [&amp;#39;localhost:9090&amp;#39;] - job_name: &amp;#39;zookeeper-monitor&amp;#39; static_configs: - targets: [&amp;#39;zoo1:7070&amp;#39;,&amp;#39;zoo2:7070&amp;#39;,&amp;#39;zoo3:7070&amp;#39;] Compose 内容如下 version: &amp;#39;3.1&amp;#39; services: zoo1: image: zookeeper:3.6.2 hostname: zoo1 ports: - 12181:2181 - 18080:8080 - 17070:7070 environment: ZOO_MY_ID: 1 ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888 ZOO_CFG_EXTRA: metricsProvider.</description>
     </item>
     
     <item>
